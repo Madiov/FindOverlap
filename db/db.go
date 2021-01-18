@@ -17,13 +17,15 @@ type Rectangle struct {
 }
 
 //AddToDb adds the rectangle to the database.
-func AddToDb(r Rectangle) {
-	r.Date = time.Now().Format("2006.01.02 15:04:05")
-	database, _ := sql.Open("sqlite3", "./db.db")
-	statement, _ := database.Prepare("CREATE TABLE IF NOT EXISTS rectangle (x INTEGER,y INTEGER,width INTEGER,height INTEGER,date TEXT)")
-	statement.Exec()
-	statement, _ = database.Prepare("INSERT INTO rectangle (x,y,width,height,date) VALUES ( ?,?,?,?,?)")
-	statement.Exec(r.X, r.Y, r.Width, r.Height, r.Date)
+func AddToDb(r []Rectangle) {
+	for _, rect := range r {
+		rect.Date = time.Now().Format("2006.01.02 15:04:05")
+		database, _ := sql.Open("sqlite3", "./db.db")
+		statement, _ := database.Prepare("CREATE TABLE IF NOT EXISTS rectangle (x INTEGER,y INTEGER,width INTEGER,height INTEGER,date TEXT)")
+		statement.Exec()
+		statement, _ = database.Prepare("INSERT INTO rectangle (x,y,width,height,date) VALUES ( ?,?,?,?,?)")
+		statement.Exec(rect.X, rect.Y, rect.Width, rect.Height, rect.Date)
+	}
 
 }
 

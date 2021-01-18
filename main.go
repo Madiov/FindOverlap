@@ -33,7 +33,8 @@ func filteringServer(w http.ResponseWriter, r *http.Request) {
 		if err != nil {
 			println(err)
 		}
-		logic.FindOverlap(i.Main, i.Input)
+		res := logic.FindOverlap(i.Main, i.Input)
+		db.AddToDb(res)
 	} else {
 		w.Write([]byte("Wrong Method"))
 	}
