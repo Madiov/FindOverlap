@@ -17,10 +17,6 @@ type indicator struct {
 	Main  db.Rectangle   `json:"main"`
 	Input []db.Rectangle `json:"input"`
 }
-type outPut struct {
-	db.Rectangle
-	Date string
-}
 
 func filteringServer(w http.ResponseWriter, r *http.Request) {
 	var i indicator
